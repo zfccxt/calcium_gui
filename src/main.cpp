@@ -1,11 +1,13 @@
 #include <calcium.hpp>
 #include <clx_imgui.hpp>
+#include <clx_imgui_vulkan.hpp>
 
 int main() {
   cl::ContextCreateInfo context_info;
   context_info.backend = cl::Backend::kVulkan;
   context_info.extensions = { clx::imgui::LoadExtension() };
   auto context = cl::Context::CreateContext(context_info);
+
   auto window = context->CreateWindow();
 
   auto shader = context->CreateShader("res/shaders/shader.vert.spv", "res/shaders/shader.frag.spv");
@@ -33,13 +35,15 @@ int main() {
     window->PollEvents();
     
     context->BeginRenderPass();
+
     shader->Bind();
     mesh->Draw();
 
-    clx::imgui::BeginFrame();
+    clx::imgui::Begin();
     ImGui::ShowDemoWindow();
-    clx::imgui::EndFrame();
+    clx::imgui::End();
 
     context->EndRenderPass();
+
   }
 }
