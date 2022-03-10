@@ -36,7 +36,7 @@ int main() {
   while (window->IsOpen()) {
     window->PollEvents();
     
-    context->BeginRenderPass();
+    context->BeginFrame();
       window->SetClearColour({colour.r, colour.g, colour.b, colour.a});
 
         shader->Bind();
@@ -54,7 +54,7 @@ int main() {
 
       clx::imgui::End();
 
-    context->EndRenderPass();
+    context->EndFrame();
 
   }
 }
